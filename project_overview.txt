@@ -1,0 +1,354 @@
+Miniazon: E-Commerce Data Structures Project
+Project Overview
+Project Title: Miniazon - Data Structures in E-Commerce
+Team: [Your Team Name]
+Course: [Your Course Name]
+Duration: 4-Week Sprint
+Tech Stack: Python, Flask, SQLite, HTML/CSS/JavaScript, Bootstrap
+
+Executive Summary
+Miniazon is a simplified e-commerce platform designed specifically to demonstrate core data structures and algorithms in a real-world context. Unlike typical web projects, our primary focus is on the implementation and visualization of fundamental computer science concepts rather than commercial features.
+
+📋 Project Specifications
+Core Objectives
+Implement 4 key data structures from scratch
+
+Demonstrate real-world application of each structure
+
+Analyze time and space complexity
+
+Present clear visualizations of how each structure operates
+
+Technical Requirements
+✅ Functional e-commerce website
+
+✅ Custom data structure implementations
+
+✅ Algorithm complexity analysis
+
+✅ RESTful API design
+
+✅ Database integration
+
+✅ Web interface
+
+✅ Documentation and presentation
+
+🔧 Technical Architecture
+System Components
+1. Data Structures Layer
+text
+data_structures/
+├── inverted_index.py      # Search functionality
+├── shopping_cart.py       # User cart management
+├── product_graph.py       # Recommendations
+└── inventory_queue.py     # Stock management
+2. Algorithms Layer
+text
+algorithms/
+├── search_algorithm.py        # Query processing
+├── recommendation_engine.py   # Graph traversal
+├── inventory_manager.py       # Queue processing
+└── cart_optimizer.py          # Hash table operations
+3. Application Layer
+text
+templates/              # Frontend UI
+static/                 # CSS, JS, Images
+app.py                  # Main Flask application
+database.py             # SQLite ORM
+models.py               # Data models
+Data Structure Specifications
+1. Inverted Index - For Search
+Purpose: Fast product search and retrieval
+Implementation: Hash Table + Sets
+Operations:
+
+add_product(product_id, text) - O(k) where k = words
+
+search(query) - O(m) where m = query words
+
+get_suggestions(prefix) - O(1) with prefix tree
+
+Real-world analogy: Amazon product search
+
+2. Shopping Cart - Hash Table
+Purpose: User session cart management
+Implementation: Dictionary of dictionaries
+Operations:
+
+add_item(user_id, product_id) - O(1)
+
+remove_item(user_id, product_id) - O(1)
+
+get_cart(user_id) - O(1)
+
+update_quantity(user_id, product_id, quantity) - O(1)
+
+Real-world analogy: Amazon shopping cart
+
+3. Product Graph - Recommendations
+Purpose: "Customers who bought this also bought..."
+Implementation: Adjacency List
+Operations:
+
+add_relationship(product_a, product_b) - O(1)
+
+get_recommendations(product_id, depth=2) - O(V+E)
+
+find_similar_users(user_id) - O(V²) with matrix
+
+Real-world analogy: Amazon recommendation engine
+
+4. Inventory Queue - Stock Management
+Purpose: Handle restocking requests and order processing
+Implementation: Queue with priority elements
+Operations:
+
+add_restock_request(product_id, quantity) - O(1)
+
+process_next_restock() - O(1)
+
+get_urgent_requests() - O(n) for priority
+
+Real-world analogy: Amazon warehouse management
+
+🎯 Feature Set
+User-Facing Features
+Product Catalog - Browse available items
+
+Search Functionality - Find products using inverted index
+
+Shopping Cart - Add/remove items demonstrating hash tables
+
+Product Recommendations - Graph-based suggestions
+
+Order Processing - Queue-based inventory management
+
+User Sessions - Hash table session management
+
+Developer/Demonstration Features
+Data Structure Visualization - See how each structure works
+
+Performance Metrics - Real-time complexity display
+
+Structure State Display - Current state of each data structure
+
+Operation Logging - Track all operations performed
+
+🚀 Implementation Plan
+Week 1: Foundation & Core Structures
+Deliverables:
+
+Project setup and Flask environment
+
+Implement InvertedIndex data structure
+
+Create basic product database
+
+Build search functionality
+
+Basic HTML templates
+
+Team Tasks:
+
+Member A: Flask app setup, routing
+
+Member B: InvertedIndex implementation
+
+Member C: Product data modeling
+
+Member D: Search UI template
+
+Week 2: User Interaction & Cart
+Deliverables:
+
+ShoppingCart hash table implementation
+
+User session management
+
+Add-to-cart functionality
+
+Cart page with real-time updates
+
+Basic styling with Bootstrap
+
+Team Tasks:
+
+Member A: ShoppingCart class
+
+Member B: Session management
+
+Member C: Cart UI and JavaScript
+
+Member D: API endpoints for cart operations
+
+Week 3: Advanced Features & Algorithms
+Deliverables:
+
+ProductGraph for recommendations
+
+InventoryQueue for stock management
+
+Recommendation algorithms
+
+Order processing system
+
+Data structure visualizations
+
+Team Tasks:
+
+Member A: ProductGraph implementation
+
+Member B: Recommendation algorithms
+
+Member C: Inventory management
+
+Member D: Visualization components
+
+Week 4: Polish & Presentation
+Deliverables:
+
+Complete all features
+
+Performance optimization
+
+Code documentation
+
+Presentation materials
+
+Demo preparation
+
+Team Tasks:
+
+All: Bug fixing and testing
+
+Member A+D: Presentation slides
+
+Member B+C: Demo script and rehearsals
+
+📊 Success Metrics
+Technical Metrics
+Search Performance: < 100ms for 10,000 products
+
+Cart Operations: < 50ms for all operations
+
+Memory Usage: Efficient data structure sizing
+
+Code Quality: > 90% test coverage
+
+Documentation: Complete API and code docs
+
+Project Metrics
+Functional Requirements: 100% implemented
+
+Data Structures: 4+ custom implementations
+
+Algorithm Analysis: Complete complexity documentation
+
+Presentation: Professional demo and slides
+
+🎓 Learning Outcomes
+Computer Science Concepts
+Data Structures: Hash tables, graphs, queues, sets, trees
+
+Algorithms: Search, traversal, sorting, optimization
+
+Complexity Analysis: Big O notation in practice
+
+System Design: Architecture patterns and trade-offs
+
+Practical Skills
+Web Development: Full-stack development with Flask
+
+Database Design: SQLite and data modeling
+
+API Design: RESTful endpoint creation
+
+Team Collaboration: Git, agile development, code reviews
+
+🛠️ Development Environment
+Setup Instructions
+bash
+# 1. Clone repository
+git clone [repository-url]
+cd miniazon-project
+
+# 2. Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Initialize database
+python database.py
+
+# 5. Run application
+python app.py
+Dependencies
+txt
+Flask==2.3.3
+Jinja2==3.1.2
+Werkzeug==2.3.7
+python-dotenv==1.0.0
+📈 Evaluation Criteria
+Technical Implementation (60%)
+Data structure correctness and efficiency: 25%
+
+Algorithm complexity and optimization: 15%
+
+Code quality and organization: 10%
+
+Database design and integration: 10%
+
+Functionality (25%)
+Feature completeness: 15%
+
+User experience and interface: 10%
+
+Documentation & Presentation (15%)
+Code documentation: 5%
+
+Project presentation: 10%
+
+🔮 Future Enhancements
+Phase 2 (If Time Permits)
+User authentication and profiles
+
+Payment processing integration
+
+Advanced recommendation algorithms
+
+Real-time inventory updates
+
+Mobile-responsive design
+
+Deployment to cloud platform
+
+📞 Team Responsibilities
+Role Definitions
+Project Lead: Overall coordination, timeline management
+
+Backend Developer: Data structures, algorithms, Flask APIs
+
+Frontend Developer: Templates, CSS, JavaScript, UX
+
+QA/Test Engineer: Testing, documentation, presentation prep
+
+Meeting Schedule
+Daily: 15-minute standup (progress update)
+
+Weekly: 1-hour planning session (task assignment)
+
+Bi-weekly: Code review and demo practice
+
+💡 Key Innovation Points
+Educational Focus: Every feature demonstrates a CS concept
+
+Visualization: Real-time display of data structure operations
+
+Performance Metrics: Live complexity analysis
+
+Modular Design: Each component can be demonstrated independently
+
+Real-world Context: Amazon-scale concepts at classroom scale
