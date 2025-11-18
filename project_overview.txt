@@ -1,9 +1,9 @@
 Miniazon: E-Commerce Data Structures Project
 Project Overview
 Project Title: Miniazon - Data Structures in E-Commerce
-Team: [Your Team Name]
-Course: [Your Course Name]
-Duration: 4-Week Sprint
+Team: To be X
+Course: DSA
+Duration: unknown
 Tech Stack: Python, Flask, SQLite, HTML/CSS/JavaScript, Bootstrap
 
 Executive Summary
