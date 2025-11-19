@@ -97,5 +97,29 @@ for product_id, quantity in cart_items.items():
     conn.close()
     return render_template('cart.html', cart_items=cart_products, total=total)
 
+# making the search bar and recco work by populating the memory
+conn = sqlite3.connect('miniazon.db')
+cursor = conn.cursor()
+cursor.execute("SELECT * FROM products")
+products = cursor.fetchall()
+
+for product in products:
+    product_id, name, description, price, category = product
+    search_index.add_product(product_id, name, description)
+
+# create a mock .ship
+# 1 is for laptop
+# 2 -> mouse
+# 3 -> keyboard
+# 4 -> monitor
+# 5 -> headpones
+product_graph.add_relationship(1,2)
+product_graph.add_relationship(1,3)
+product_graph.add_relationship(1,4)
+product_graph.add_relationship(2,3)
+product_graph.add_relationship(3,5)
+
+conn.close()
+
 if __name__ == '__main__':
     app.run(debug=True)
