@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ product[1] }} - Miniazon</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .product-detail { margin-bottom: 30px; }
+        .recommendations { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .product { border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+        .price { color: #B12704; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1><a href="/">Miniazon</a></h1>
+    
+    <div class="product-detail">
+        <h2>{{ product[1] }}</h2>
+        <p><strong>Description:</strong> {{ product[2] }}</p>
+        <p class="price">Price: ${{ "%.2f"|format(product[3]) }}</p>
+        <p><strong>Category:</strong> {{ product[4] }}</p>
+        
+        <form action="/add_to_cart" method="post">
+            <input type="hidden" name="product_id" value="{{ product[0] }}">
+            <button type="submit">Add to Cart</button>
+        </form>
+    </div>
+
+    {% if recommendations %}
+    <div class="recommendations-section">
+        <h3>Customers also bought:</h3>
+        <div class="recommendations">
+            {% for rec in recommendations %}
+            <div class="product">
+                <h4><a href="/product/{{ rec[0] }}">{{ rec[1] }}</a></h4>
+                <p class="price">${{ "%.2f"|format(rec[3]) }}</p>
+                <form action="/add_to_cart" method="post">
+                    <input type="hidden" name="product_id" value="{{ rec[0] }}">
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <p><a href="/">Back to Home</a> | <a href="/cart">View Cart</a></p>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Miniazon - Home</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0; }
+        .product { border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+        .price { color: #B12704; font-weight: bold; }
+        .search-box { margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>Miniazon</h1>
+    
+    <div class="search-box">
+        <form action="/search" method="get">
+            <input type="text" name="q" placeholder="Search products..." style="padding: 8px; width: 300px;">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <h2>All Products</h2>
+    <div class="products">
+        {% for product in products %}
+        <div class="product">
+            <h3><a href="/product/{{ product[0] }}">{{ product[1] }}</a></h3>
+            <p>{{ product[2] }}</p>
+            <p class="price">${{ "%.2f"|format(product[3]) }}</p>
+            <form action="/add_to_cart" method="post">
+                <input type="hidden" name="product_id" value="{{ product[0] }}">
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+    <p><a href="/cart">View Cart</a></p>
+</body>
+</html>
