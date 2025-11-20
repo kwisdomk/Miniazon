@@ -25,17 +25,19 @@ def home():
 def search():
     """Search products using inverted index"""
     query = request.args.get('q', '')
+    results = [] # FIX 1: Initialize this here so it doesn't crash if no results found
+
     if query:
         product_ids = search_index.search(query)
-# conv. set to list for db query
-        placeholders = ','.join('?' * len(product_ids))
-        conn = sqlite3.connect('miniazon.db')
-        cursor = conn.cursor()
-        cursor.execute(f"SELECT * FROM products WHERE id IN ({placeholders})", list(product_ids))
-        results = cursor.fetchall()
-        conn.close()
-    else:
-        results = []
+        # conv. set to list for db query
+        if product_ids:
+            placeholders = ','.join('?' * len(product_ids))
+            conn = sqlite3.connect('miniazon.db')
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT * FROM products WHERE id IN ({placeholders})", list(product_ids))
+            results = cursor.fetchall()
+            conn.close()
+    
     return render_template('search.html', results=results, query=query)
     
 @app.route('/product/<int:product_id>')
@@ -46,7 +48,8 @@ def product_detail(product_id):
     cursor.execute("SELECT * FROM products WHERE id = ?", (product_id,))
     product = cursor.fetchone()
 
-#get recs
+    #get recs
+    recommendations = []
     recommendations_ids = product_graph.get_recommendations(product_id)
     if recommendations_ids:
         placeholders = ','.join('?' * len(recommendations_ids))
@@ -55,14 +58,19 @@ def product_detail(product_id):
     else:
         recommendations = []
 
-        conn.close()
-        return render_template('product.html', product=product, recommendations=recommendations)
+    conn.close() # FIX 2: Unindented these so page loads even if no recs
+    return render_template('product.html', product=product, recommendations=recommendations)
     
 @app.route('/add_to_cart', methods=['POST'])
 def add_to_cart():
     """Addo item-desu to shopping carto"""
     user_id = "erosenpai_1337" # demo creds"
+    
+    # FIX 3: Convert ID to int, or it won't match the database keys
     product_id = request.form.get('product_id')
+    if product_id:
+        product_id = int(product_id)
+        
     quantity = int(request.form.get('quantity', 1))
         
     shopping_cart.add_item(user_id, product_id, quantity)
@@ -80,19 +88,20 @@ def view_cart():
     cart_products = []
     total = 0
 
-for product_id, quantity in cart_items.items():
-    cursor.execute("SELECT * FROM products WHERE id = ?", (product_id,))
-    product = cursor.fetchone()
-    if product:
-        item_total = product[3] * quantinty # price * quantity
-        total += item_total
-        cart_products.append({
-            'id': product[0],
-            'name': product[1],
-            'price': product[3],
-            'quantity': quantity,
-            'total': item_total
-        })
+    # FIX 4: Indented this whole block so it belongs to the function!
+    for product_id, quantity in cart_items.items():
+        cursor.execute("SELECT * FROM products WHERE id = ?", (product_id,))
+        product = cursor.fetchone()
+        if product:
+            item_total = product[3] * quantity # price * quantity
+            total += item_total
+            cart_products.append({
+                'id': product[0],
+                'name': product[1],
+                'price': product[3],
+                'quantity': quantity,
+                'total': item_total
+            })
 
     conn.close()
     return render_template('cart.html', cart_items=cart_products, total=total)
